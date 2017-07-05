@@ -1,5 +1,6 @@
 import nbformat as nbf
 from subprocess import call
+import pdfkit
 
 nb = nbf.v4.new_notebook()
 
@@ -84,7 +85,7 @@ nb['cells'] = [nbf.v4.new_markdown_cell(text),
                nbf.v4.new_code_cell(code),
                nbf.v4.new_markdown_cell(styles),
                nbf.v4.new_markdown_cell(table),
-               nbf.v4.new_markdown_cell(image),
+               # nbf.v4.new_markdown_cell(image),
                nbf.v4.new_markdown_cell(links),
                nbf.v4.new_markdown_cell(math)
                ]
@@ -96,3 +97,6 @@ with open(fname, 'w') as f:
 
 # ipython nbconvert --to FORMAT notebook.ipynb
 call(["ipython", "nbconvert", "--to", "html", "test.ipynb"])
+call(["ipython", "nbconvert", "--to", "pdf", "test.ipynb"])
+
+pdfkit.from_file('test.html', 'out.pdf')
